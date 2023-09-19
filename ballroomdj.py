@@ -5,6 +5,11 @@ from pygame import mixer
 from PIL import Image
 from PIL import ImageTk
 #https://tkdocs.com/
+dances = {"Standard":["watlz","tango","vwaltz","foxtrot","quickstep"],
+              "Latin":["chacha","rumba","samba","jive"],
+              "Smooth":["waltz","tango","vwaltz","foxtrot"],
+              "Rhythm":["chacha","rumba","swing","bolero","mambo"]
+              }
 api_link='http://navidrome.mce27.xyz/rest/stream?id=5a8524f33621b876715bb7160289917c&u=mce27&t=e122d5bb2a94badb87dd8df90de1873f&s=d54g6h&v=1.12.0&c=myapp'
 
 Mfont=["Comic sans MS", 20]
