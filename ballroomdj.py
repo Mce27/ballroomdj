@@ -5,11 +5,6 @@ from pygame import mixer
 from PIL import Image
 from PIL import ImageTk
 #https://tkdocs.com/
-dances = {"Standard":["watlz","tango","vwaltz","foxtrot","quickstep"],
-              "Latin":["chacha","rumba","samba","jive"],
-              "Smooth":["waltz","tango","vwaltz","foxtrot"],
-              "Rhythm":["chacha","rumba","swing","bolero","mambo"]
-              }
 
 Mfont=["Comic sans MS", 20]
 

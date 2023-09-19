@@ -1,7 +1,11 @@
 import os
 import requests
 api_link='http://ballroom.mce27.xyz/rest/stream?id={id}&u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp'
-
+dances = {"Standard":["watlz","tango","vwaltz","foxtrot","quickstep"],
+              "Latin":["chacha","rumba","samba","jive"],
+              "Smooth":["waltz","tango","vwaltz","foxtrot"],
+              "Rhythm":["chacha","rumba","swing","bolero","mambo"]
+              }
 
 def api_request(link:str):
     req = requests.get(link)
