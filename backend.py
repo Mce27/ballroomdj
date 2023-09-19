@@ -8,3 +8,26 @@ def api_request(link:str):
     with open('music/song.mp3','wb') as file:
         file.write(req.content)
     return 'music/song.mp3'
+
+def setup():
+    """
+    builds media file structure and dls music from server
+    """
+    print("Setting up!\n")
+    if not os.path.exists('music'):#means no fs is there
+        os.mkdir('music')
+        for cat in dances.keys():
+            os.mkdir(f'music/{cat}')
+            for dance in dances[cat]:
+                os.mkdir(f'music/{cat}/{dance}')
+    else:#check if rest of fs is there
+        for cat in dances.keys():
+            if not os.path.exists(f'music/{cat}'):
+                os.mkdir(f'music/{cat}')
+                for dance in dances[cat]:
+                    os.mkdir(f'music/{cat}/{dance}')
+            else:
+                for dance in dances[cat]:#see if dir for each dance exists
+                    if not os.path.exists(f'music/{cat}/{dance}'):
+                        os.mkdir(f'music/{cat}/{dance}')
+    #now that fs is in place, time to dl music
