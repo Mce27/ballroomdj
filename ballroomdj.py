@@ -10,7 +10,6 @@ dances = {"Standard":["watlz","tango","vwaltz","foxtrot","quickstep"],
               "Smooth":["waltz","tango","vwaltz","foxtrot"],
               "Rhythm":["chacha","rumba","swing","bolero","mambo"]
               }
-api_link='http://ballroom.mce27.xyz/rest/stream?id=5a8524f33621b876715bb7160289917c&u=ballroom&t=ow130p2&s=ow130p2&v=1.12.0&c=myapp'
 
 Mfont=["Comic sans MS", 20]
 
