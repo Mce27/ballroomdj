@@ -1,4 +1,4 @@
-import time, backend
+import time, backend, os
 from tkinter import *
 from tkinter import ttk
 from pygame import mixer
@@ -27,6 +27,30 @@ frm = ttk.Frame(root,padding="20")
 frm.grid(column=0,row=0)
 textVar = 'Press the button!'
 lab=ttk.Label(frm,text=textVar)
+
+def setup():
+    """
+    builds media file structure and dls music from server
+    """
+    print("Setting up!\n")
+    if not os.path.exists('music'):#means no fs is there
+        os.mkdir('music')
+        for cat in dances.keys():
+            os.mkdir(f'music/{cat}')
+            for dance in dances[cat]:
+                os.mkdir(f'music/{cat}/{dance}')
+    else:#check if rest of fs is there
+        for cat in dances.keys():
+            if not os.path.exists(f'music/{cat}'):
+                os.mkdir(f'music/{cat}')
+                for dance in dances[cat]:
+                    os.mkdir(f'music/{cat}/{dance}')
+            else:
+                for dance in dances[cat]:#see if dir for each dance exists
+                    if not os.path.exists(f'music/{cat}/{dance}'):
+                        os.mkdir(f'music/{cat}/{dance}')
+
+
 
 
 def playSong():
