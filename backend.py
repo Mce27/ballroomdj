@@ -20,11 +20,11 @@ def api_request():
     for cat in dances.keys():
         content_of_playlist = requests.get(f'http://ballroom.mce27.xyz/rest/getPlaylist?id={playlist_dict[cat]}&u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp')
         content_of_playlist = BeautifulSoup(content_of_playlist)
-        songs = content_of_playlist.find_all('songs')   #@TODO make sure 'songs' is right
+        songs = content_of_playlist.find_all('entry')
         i = random.random(0,len(songs)) #random int to grab a song
         song_to_dl = songs[i]['id']
         req = requests.get(f'http://ballroom.mce27.xyz/rest/stream?id={song_to_dl}&u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp')
-        with open(f'music/{cat}/{cat+dances[cat]}/{songs[i]["name"]}.mp3','wb') as file:    #@TODO make sure 'name' is right
+        with open(f'music/{cat}/{cat+dances[cat]}/{songs[i]["title"]}.mp3','wb') as file:
             file.write(req.content)
 
 def setup():
@@ -49,3 +49,4 @@ def setup():
                     if not os.path.exists(f'music/{cat}/{dance}'):
                         os.mkdir(f'music/{cat}/{dance}')
     #now that fs is in place, time to dl music
+    api_request()
