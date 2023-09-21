@@ -1,7 +1,7 @@
 import os,requests,random
 from bs4 import BeautifulSoup
 api_link='http://ballroom.mce27.xyz/rest/stream?id={id}&u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp'
-dances = {"std":["watlz","tango","vwaltz","foxtrot","quickstep"],
+dances = {"std":["waltz","tango","vwaltz","foxtrot","quickstep"],
               "lat":["chacha","rumba","samba","jive"],
               "smo":["waltz","tango","vwaltz","foxtrot"],
               "rhy":["chacha","rumba","swing","bolero","mambo"]
@@ -12,19 +12,19 @@ def api_request():
     pulls playlists from server and downloads one song for each category
     """
     playlists = requests.get(f'http://ballroom.mce27.xyz/rest/getPlaylists?u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp')
-    soup = BeautifulSoup(playlists.content)
+    soup = BeautifulSoup(playlists.content,features='lxml')
     playlist_list = soup.find_all("playlist")
     playlist_dict = {}
     for playlist in playlist_list:
         playlist_dict[playlist['name']] = playlist['id']
-    for cat in dances.keys():
+    for cat in playlist_dict.keys():
         content_of_playlist = requests.get(f'http://ballroom.mce27.xyz/rest/getPlaylist?id={playlist_dict[cat]}&u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp')
-        content_of_playlist = BeautifulSoup(content_of_playlist)
+        content_of_playlist = BeautifulSoup(content_of_playlist.content,features='lxml')
         songs = content_of_playlist.find_all('entry')
-        i = random.random(0,len(songs)) #random int to grab a song
+        i = random.randrange(0,len(songs)) #random int to grab a song
         song_to_dl = songs[i]['id']
-        req = requests.get(f'http://ballroom.mce27.xyz/rest/stream?id={song_to_dl}&u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp')
-        with open(f'music/{cat}/{cat+dances[cat]}/{songs[i]["title"]}.mp3','wb') as file:
+        req = requests.get(f'http://ballroom.mce27.xyz/rest/stream?id={song_to_dl}&u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&format=mp3&s=ow130p2&v=1.12.0&c=myapp')
+        with open(f'music/{cat[:3]}/{cat[3:]}/{songs[i]["title"]}.mp3','wb') as file:
             file.write(req.content)
 
 def setup():
