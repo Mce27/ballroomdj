@@ -39,17 +39,31 @@ def waitDone():
         pass
 
 def playRound(style:str):
-    dances = backend.dances[style]
-    mixer.init()
-    statusVar.set("Queuing music...")
-    for dance in dances:
-        song = os.listdir(f"music/{style}/{dance}")
-        mixer.music.load(f"music/{style}/{dance}/{song[0]}")
-        mixer.music.play()
-        mixer.music.queue("media/clapping.mp3")
-        statusVar.set(f"Playing {dance}\n{song[0][:-4]}")
-        waitDone()
-    statusVar.set("Nice Dancing!\nAwaiting input")
+    if style == "all":
+        for cat in backend.dances.keys():
+            dances = backend.dances[cat]
+            mixer.init()
+            statusVar.set("Queuing music...")
+            for dance in dances:
+                song = os.listdir(f"music/{cat}/{dance}")
+                mixer.music.load(f"music/{cat}/{dance}/{song[0]}")
+                mixer.music.play()
+                mixer.music.queue("media/clapping.mp3")
+                statusVar.set(f"Playing {dance}\n{song[0][:-4]}")
+                waitDone()
+        statusVar.set("Nice Dancing!\nAwaiting input")
+    else:       
+        dances = backend.dances[style]
+        mixer.init()
+        statusVar.set("Queuing music...")
+        for dance in dances:
+            song = os.listdir(f"music/{style}/{dance}")
+            mixer.music.load(f"music/{style}/{dance}/{song[0]}")
+            mixer.music.play()
+            mixer.music.queue("media/clapping.mp3")
+            statusVar.set(f"Playing {dance}\n{song[0][:-4]}")
+            waitDone()
+        statusVar.set("Nice Dancing!\nAwaiting input")
 
 std_round_but = ttk.Button(frm, text="Play!", command=lambda:playRound('std')).grid(column=0,row=1)
 lat_round_but = ttk.Button(frm, text="Play!", command=lambda:playRound('lat')).grid(column=1,row=1)
