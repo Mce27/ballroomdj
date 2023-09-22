@@ -89,6 +89,11 @@ def resumeSong():
         mixer.music.unpause()
         PAUSED = False
 
+def skipSong():
+    global PAUSED #just in case the player is paused
+    PAUSED = False
+    mixer.music.fadeout(1000)
+
 std_round_but = ttk.Button(frm, text="Play!", command=lambda:playThreadedRound('std')).grid(column=0,row=1)
 lat_round_but = ttk.Button(frm, text="Play!", command=lambda:playThreadedRound('lat')).grid(column=1,row=1)
 smo_round_but = ttk.Button(frm, text="Play!", command=lambda:playThreadedRound('smo')).grid(column=2,row=1)
@@ -96,8 +101,7 @@ rhy_round_but = ttk.Button(frm, text="Play!", command=lambda:playThreadedRound('
 all_round_but = ttk.Button(frm, text="Play!", command=lambda:playThreadedRound('all')).grid(column=0,row=3)
 pause_but = ttk.Button(frm, text="Pause", command=pauseSong).grid(column=0,row=4)
 unpause_but = ttk.Button(frm, text="! Pause", command=resumeSong).grid(column=1,row=4)
-#lab.pack()
-#but.pack()
+skip_but = ttk.Button(frm, text="Skip", command=skipSong).grid(column=3,row=4)
 
 statusVar.set("Setting up...")
 backend.setup()
