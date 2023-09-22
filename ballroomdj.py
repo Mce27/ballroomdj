@@ -1,4 +1,4 @@
-import time, backend, os
+import time, backend, os, shutil
 from tkinter import *
 from tkinter import ttk
 from pygame import mixer
@@ -68,7 +68,10 @@ def playRound(style:str):
         statusVar.set("Queuing music...")
         for dance in dances:
             song = os.listdir(f"music/{style}/{dance}")
-            statusVar.set(f"Playing {dance}\n{song[0][:-4]}")
+            title = song[0][:-4]
+            if len(title) > 20:
+                title = title[:20] + '-\n' + title[20:]
+            statusVar.set(f"Playing {dance}:\n{title}")
             mixer.music.load(f"music/{style}/{dance}/{song[0]}")
             mixer.music.play()
             waitDone()
@@ -107,3 +110,4 @@ statusVar.set("Setting up...")
 backend.setup()
 statusVar.set("Awaiting input")
 root.mainloop()
+shutil.rmtree('music', ignore_errors=True)
