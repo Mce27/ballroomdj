@@ -4,9 +4,11 @@ from tkinter import ttk
 from pygame import mixer
 from PIL import Image
 from PIL import ImageTk
+import threading
 #https://tkdocs.com/
 
 Mfont=["Comic sans MS", 20]
+PAUSED = False
 
 root = Tk()
 
@@ -34,9 +36,15 @@ def playSong():
     mixer.music.load(filepath)
     mixer.music.play()
 
+
 def waitDone():
-    while mixer.music.get_busy() == True:
+    global PAUSED
+    while mixer.music.get_busy() == True or PAUSED:
+        time.sleep(1)
         pass
+
+def playThreadedRound(style:str):
+    threading.Thread(target=playRound,args=(style,)).start()
 
 def playRound(style:str):
     if style == "all":
@@ -46,10 +54,12 @@ def playRound(style:str):
             statusVar.set("Queuing music...")
             for dance in dances:
                 song = os.listdir(f"music/{cat}/{dance}")
+                statusVar.set(f"Playing {dance}\n{song[0][:-4]}")
                 mixer.music.load(f"music/{cat}/{dance}/{song[0]}")
                 mixer.music.play()
-                mixer.music.queue("media/clapping.mp3")
-                statusVar.set(f"Playing {dance}\n{song[0][:-4]}")
+                waitDone()
+                mixer.music.load("media/clapping.mp3")
+                mixer.music.play()
                 waitDone()
         statusVar.set("Nice Dancing!\nAwaiting input")
     else:       
@@ -58,18 +68,34 @@ def playRound(style:str):
         statusVar.set("Queuing music...")
         for dance in dances:
             song = os.listdir(f"music/{style}/{dance}")
+            statusVar.set(f"Playing {dance}\n{song[0][:-4]}")
             mixer.music.load(f"music/{style}/{dance}/{song[0]}")
             mixer.music.play()
-            mixer.music.queue("media/clapping.mp3")
-            statusVar.set(f"Playing {dance}\n{song[0][:-4]}")
+            waitDone()
+            mixer.music.load("media/clapping.mp3")
+            mixer.music.play()
             waitDone()
         statusVar.set("Nice Dancing!\nAwaiting input")
 
-std_round_but = ttk.Button(frm, text="Play!", command=lambda:playRound('std')).grid(column=0,row=1)
-lat_round_but = ttk.Button(frm, text="Play!", command=lambda:playRound('lat')).grid(column=1,row=1)
-smo_round_but = ttk.Button(frm, text="Play!", command=lambda:playRound('smo')).grid(column=2,row=1)
-rhy_round_but = ttk.Button(frm, text="Play!", command=lambda:playRound('rhy')).grid(column=3,row=1)
-all_round_but = ttk.Button(frm, text="not implemented", command=lambda:playRound('all')).grid(column=0,row=3)
+def pauseSong():
+    global PAUSED
+    if mixer.music.get_busy():
+        PAUSED = True
+        mixer.music.pause()
+
+def resumeSong():
+    global PAUSED
+    if PAUSED:
+        mixer.music.unpause()
+        PAUSED = False
+
+std_round_but = ttk.Button(frm, text="Play!", command=lambda:playThreadedRound('std')).grid(column=0,row=1)
+lat_round_but = ttk.Button(frm, text="Play!", command=lambda:playThreadedRound('lat')).grid(column=1,row=1)
+smo_round_but = ttk.Button(frm, text="Play!", command=lambda:playThreadedRound('smo')).grid(column=2,row=1)
+rhy_round_but = ttk.Button(frm, text="Play!", command=lambda:playThreadedRound('rhy')).grid(column=3,row=1)
+all_round_but = ttk.Button(frm, text="Play!", command=lambda:playThreadedRound('all')).grid(column=0,row=3)
+pause_but = ttk.Button(frm, text="Pause", command=pauseSong).grid(column=0,row=4)
+unpause_but = ttk.Button(frm, text="! Pause", command=resumeSong).grid(column=1,row=4)
 #lab.pack()
 #but.pack()
 
