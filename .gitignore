@@ -1,3 +1,6 @@
 *
 !*.py
 !requirements.txt
+!media/
+!media/*
+!media/*/*
