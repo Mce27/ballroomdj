@@ -40,6 +40,9 @@ def playSong():
 def waitDone():
     global PAUSED
     while mixer.music.get_busy() == True or PAUSED:
+        #print(mixer.music.get_pos()/1000)
+        if (mixer.music.get_pos()/1000) > 90:   #fades out song after 1.5 minutes
+            mixer.music.fadeout(1000)
         time.sleep(1)
         pass
 
@@ -47,8 +50,11 @@ def playThreadedRound(style:str):
     threading.Thread(target=playRound,args=(style,)).start()
 
 def playRound(style:str):
+    global PAUSED
     if style == "all":
         for cat in backend.dances.keys():
+            while PAUSED:
+                time.sleep(1)
             dances = backend.dances[cat]
             mixer.init()
             statusVar.set("Queuing music...")
@@ -61,6 +67,8 @@ def playRound(style:str):
                 mixer.music.load("media/clapping.mp3")
                 mixer.music.play()
                 waitDone()
+            pauseSong() #pause between styles requested by James
+            statusVar.set("Press '! Pause' to continue!")
         statusVar.set("Nice Dancing!\nAwaiting input")
     else:       
         dances = backend.dances[style]
@@ -82,9 +90,9 @@ def playRound(style:str):
 
 def pauseSong():
     global PAUSED
-    if mixer.music.get_busy():
-        PAUSED = True
-        mixer.music.pause()
+    """if mixer.music.get_busy():"""
+    PAUSED = True
+    mixer.music.pause()
 
 def resumeSong():
     global PAUSED
