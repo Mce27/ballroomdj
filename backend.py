@@ -71,13 +71,16 @@ def get_random_dance_song(style:str,dance:str):
     i = random.randrange(0,len(songs)) #random int to grab a song
     song_to_dl = songs[i]
     filepath = f'music/{style}/{dance}/{song_to_dl["title"]}.mp3'
-    get_song(song_to_dl['id'],)
+    get_song(song_to_dl['id'],filepath)
     return filepath, song_to_dl['title']
 
 def get_song(id:str,out_path:str):
     song = requests.get(f'http://ballroom.mce27.xyz/rest/stream?id={id}&u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&format=mp3&s=ow130p2&v=1.12.0&c=myapp')
-    with open(out_path,'wb') as file:
-        file.write(song.content)
+    try:
+        with open(out_path,'wb') as file:
+            file.write(song.content)
+    except PermissionError as e:
+        print("error: " + str(e))
 
 def setup():
     """
