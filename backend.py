@@ -1,11 +1,11 @@
 import os,requests,random
 from bs4 import BeautifulSoup
-api_link='http://ballroom.mce27.xyz/rest/stream?id={id}&u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp'
-dances = {"std":["waltz","tango","vwaltz","foxtrot","quickstep"],
-              "lat":["chacha","rumba","samba","jive"],
-              "smo":["waltz","tango","vwaltz","foxtrot"],
-              "rhy":["chacha","rumba","swing","bolero","mambo"]
-              }
+api_link='http://ballroom.mce27.xyz/rest/stream?id={id}&format=mp3&u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp'
+dances = {"smo":["waltz","tango","vwaltz","foxtrot"],
+          "std":["waltz","tango","vwaltz","foxtrot","quickstep"],
+          "rhy":["chacha","rumba","swing","bolero","mambo"],
+          "lat":["chacha","rumba","samba","jive"]
+            }
 
 def api_request():
     """
