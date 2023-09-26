@@ -131,6 +131,16 @@ def playRound(style:str):
             waitDone()
         statusVar.set("Nice Dancing!\nAwaiting input")
 
+def shuffleStyle(style:str):
+    """
+    Plays a continuous stream of music of the specific style, in random order
+    """
+
+def shuffleDance(style:str,dance:str):  
+    """
+    Plays a continuous stream of music of the specific style and dance, in random order
+    """ 
+
 def pauseSong():
     global PAUSED
     """if mixer.music.get_busy():"""
