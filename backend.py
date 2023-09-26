@@ -4,7 +4,7 @@ api_link='http://ballroom.mce27.xyz/rest/stream?id={id}&format=mp3&u=ballroom&t=
 dances = {"smo":["waltz","tango","vwaltz","foxtrot"],
           "std":["waltz","tango","vwaltz","foxtrot","quickstep"],
           "rhy":["chacha","rumba","swing","bolero","mambo"],
-          "lat":["chacha","rumba","samba","jive"]
+          "lat":["chacha","rumba","samba","jive","paso"]
             }
 
 def api_request():
