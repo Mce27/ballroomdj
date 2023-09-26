@@ -27,6 +27,58 @@ def api_request():
         with open(f'music/{cat[:3]}/{cat[3:]}/{songs[i]["title"]}.mp3','wb') as file:
             file.write(req.content)
 
+def get_random_style_song(style:str):
+    """
+    Downloads a random song from a certain style
+    Returns the filepath
+    """
+    dances_list = dances[style]
+    i = random.randrange(0,len(dances_list)) #random int to grab a dance
+    dance_to_get = dances_list[i]
+    playlists = requests.get(f'http://ballroom.mce27.xyz/rest/getPlaylists?u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp')
+    soup = BeautifulSoup(playlists.content,features='lxml')
+    playlist_list = soup.find_all("playlist")
+    playlist_dict = {}
+
+    for playlist in playlist_list:
+        playlist_dict[playlist['name']] = playlist['id']
+
+    content_of_playlist = requests.get(f'http://ballroom.mce27.xyz/rest/getPlaylist?id={playlist_dict[style + dance_to_get]}&u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp')
+    content_of_playlist = BeautifulSoup(content_of_playlist.content,features='lxml')
+    songs = content_of_playlist.find_all('entry')
+    i = random.randrange(0,len(songs)) #random int to grab a song
+    song_to_dl = songs[i]
+    filepath = f'music/{style}/{dance_to_get}/{song_to_dl["title"]}.mp3'
+    get_song(song_to_dl['id'],)
+    return filepath
+
+def get_random_dance_song(style:str,dance:str):
+    """
+    Downloads a random song from a certain dance and style
+    Returns the filepath
+    """
+    playlists = requests.get(f'http://ballroom.mce27.xyz/rest/getPlaylists?u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp')
+    soup = BeautifulSoup(playlists.content,features='lxml')
+    playlist_list = soup.find_all("playlist")
+    playlist_dict = {}
+
+    for playlist in playlist_list:
+        playlist_dict[playlist['name']] = playlist['id']
+
+    content_of_playlist = requests.get(f'http://ballroom.mce27.xyz/rest/getPlaylist?id={playlist_dict[style + dance]}&u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp')
+    content_of_playlist = BeautifulSoup(content_of_playlist.content,features='lxml')
+    songs = content_of_playlist.find_all('entry')
+    i = random.randrange(0,len(songs)) #random int to grab a song
+    song_to_dl = songs[i]
+    filepath = f'music/{style}/{dance}/{song_to_dl["title"]}.mp3'
+    get_song(song_to_dl['id'],)
+    return filepath
+
+def get_song(id:str,out_path:str):
+    song = requests.get(f'http://ballroom.mce27.xyz/rest/stream?id={id}&u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&format=mp3&s=ow130p2&v=1.12.0&c=myapp')
+    with open(out_path,'wb') as file:
+        file.write(song.content)
+
 def setup():
     """
     builds media file structure and dls music from server
@@ -49,4 +101,4 @@ def setup():
                     if not os.path.exists(f'music/{cat}/{dance}'):
                         os.mkdir(f'music/{cat}/{dance}')
     #now that fs is in place, time to dl music
-    api_request()
+    #api_request()
