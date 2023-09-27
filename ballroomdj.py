@@ -12,6 +12,7 @@ Mfont=["Comic sans MS", 20]
 PAUSED = False
 STOP = False
 LOL = True
+CLAPS = TRUE
 
 root = Tk()
 
@@ -58,6 +59,7 @@ def playRound(style:str):
     global PAUSED
     global STOP
     global LOL
+    global CLAPS
     STOP = False
     statusVar.set("Setting up...")
     if style == "all":
@@ -79,7 +81,7 @@ def playRound(style:str):
                     mixer.music.load(f"music/{cat}/{dance}/{song[0]}")
                     mixer.music.play()
                     waitDone()
-                    if not STOP:
+                    if not STOP and CLAPS:
                         mixer.music.load("media/clapping.mp3")
                         mixer.music.play()
                         waitDone()
@@ -106,7 +108,7 @@ def playRound(style:str):
                 mixer.music.load(f"music/{style}/{dance}/{song[0]}")
                 mixer.music.play()
                 waitDone()
-                if not STOP:
+                if not STOP and CLAPS:
                     mixer.music.load("media/clapping.mp3")
                     mixer.music.play()
                     waitDone()
@@ -132,9 +134,10 @@ def shuffleStyle(style:str):
         mixer.music.load(filepath)
         mixer.music.play()
         waitDone()
-        mixer.music.load("media/clapping.mp3")
-        mixer.music.play()
-        waitDone()
+        if CLAPS:
+            mixer.music.load("media/clapping.mp3")
+            mixer.music.play()
+            waitDone()
 
 def threadedShuffleStyle(style:str):
     threading.Thread(target=shuffleStyle,args=(style,)).start()
@@ -161,7 +164,7 @@ def shuffleDance(style:str,dance:str):
         mixer.music.load(filepath)
         mixer.music.play()
         waitDone()
-        if not STOP:
+        if not STOP and CLAPS:
             mixer.music.load("media/clapping.mp3")
             mixer.music.play()
             waitDone()
@@ -193,7 +196,13 @@ def skipSong():
     PAUSED = False
     mixer.music.fadeout(1000)
 
+def toggleClaps():
+    global CLAPS
+    CLAPS = not CLAPS
 
+def toggleLOL():
+    global LOL
+    LOL = not LOL
 
 rounds_label = ttk.Label(frm,text="Rounds:",padding='10').grid(column=0,row=0)
 smo_round_but = ttk.Button(round_button_frm, text="Smooth!", command=lambda:playThreadedRound('smo')).grid(column=0,row=1)
@@ -243,6 +252,8 @@ pause_but = ttk.Button(frm, text="Pause", command=pauseSong).grid(column=0,row=6
 unpause_but = ttk.Button(frm, text="! Pause", command=resumeSong).grid(column=1,row=6)
 skip_but = ttk.Button(frm, text="Skip", command=skipSong).grid(column=0,row=7)
 stop_but = ttk.Button(frm, text="Stop", command=stopShuffle).grid(column=1,row=7)
+claps_but = ttk.Button(frm, text="Toggle\nClaps", command=toggleClaps).grid(column=0,row=8)
+lol_button = ttk.Button(frm, text="Toggle\nCount", command=toggleLOL).grid(column=1,row=8)
 
 statusVar.set("Setting up...")
 backend.setup()
