@@ -129,6 +129,7 @@ def shuffleDance(style:str,dance:str):
     """
     Plays a continuous stream of music of the specific style and dance, in random order
     """ 
+    global STOP
     que = Queue()
     que.maxsize = 3
     STOP = False
@@ -140,9 +141,10 @@ def shuffleDance(style:str,dance:str):
         mixer.music.load(filepath)
         mixer.music.play()
         waitDone()
-        mixer.music.load("media/clapping.mp3")
-        mixer.music.play()
-        waitDone()
+        if not STOP:
+            mixer.music.load("media/clapping.mp3")
+            mixer.music.play()
+            waitDone()
         time.sleep(1)
 
 def threadedShuffleDance(style:str,dance:str):
@@ -181,11 +183,11 @@ lat_round_but = ttk.Button(round_button_frm, text="Latin!", command=lambda:playT
 all_round_but = ttk.Button(round_button_frm, text="All!", command=lambda:playThreadedRound('all')).grid(column=0,row=5)
 
 shuffle_style_label = ttk.Label(frm,text="Shuffle Style:",padding='10').grid(column=1,row=0)
-smo_shuffle_but = ttk.Button(style_button_frm, text="Smooth!", command=lambda:shuffleStyle('smo')).grid(column=1,row=1)
-std_shuffle_but = ttk.Button(style_button_frm, text="Standard!", command=lambda:shuffleStyle('std')).grid(column=1,row=2)
-rhy_shuffle_but = ttk.Button(style_button_frm, text="Rhythm!", command=lambda:shuffleStyle('rhy')).grid(column=1,row=3)
-lat_shuffle_but = ttk.Button(style_button_frm, text="Latin!", command=lambda:shuffleStyle('lat')).grid(column=1,row=4)
-all_shuffle_but = ttk.Button(style_button_frm, text="All!", command=lambda:shuffleStyle('all')).grid(column=1,row=5)
+smo_shuffle_but = ttk.Button(style_button_frm, text="Smooth!", command=lambda:threadedShuffleStyle('smo')).grid(column=1,row=1)
+std_shuffle_but = ttk.Button(style_button_frm, text="Standard!", command=lambda:threadedShuffleStyle('std')).grid(column=1,row=2)
+rhy_shuffle_but = ttk.Button(style_button_frm, text="Rhythm!", command=lambda:threadedShuffleStyle('rhy')).grid(column=1,row=3)
+lat_shuffle_but = ttk.Button(style_button_frm, text="Latin!", command=lambda:threadedShuffleStyle('lat')).grid(column=1,row=4)
+all_shuffle_but = ttk.Button(style_button_frm, text="All!", command=lambda:threadedShuffleStyle('all')).grid(column=1,row=5)
 
 shuffle_dance_label = ttk.Label(frm,text="Shuffle Dance:",padding='10').grid(column=2,row=0)
 smo_label=ttk.Label(button_frm,text="Smooth:",padding='10').grid(column=2,row=0)
