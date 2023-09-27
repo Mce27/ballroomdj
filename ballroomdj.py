@@ -124,6 +124,7 @@ def shuffleStyle(style:str):
     """
     Plays a continuous stream of music of the specific style, in random order
     """
+    global STOP
     que = Queue()
     que.maxsize = 3
     STOP = False
@@ -134,7 +135,7 @@ def shuffleStyle(style:str):
         mixer.music.load(filepath)
         mixer.music.play()
         waitDone()
-        if CLAPS:
+        if not STOP and CLAPS:
             mixer.music.load("media/clapping.mp3")
             mixer.music.play()
             waitDone()
