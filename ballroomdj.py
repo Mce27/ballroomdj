@@ -11,6 +11,7 @@ import threading
 Mfont=["Comic sans MS", 20]
 PAUSED = False
 STOP = False
+LOL = True
 
 root = Tk()
 
@@ -56,6 +57,7 @@ def playThreadedRound(style:str):
 def playRound(style:str):
     global PAUSED
     global STOP
+    global LOL
     STOP = False
     statusVar.set("Setting up...")
     if style == "all":
@@ -66,6 +68,10 @@ def playRound(style:str):
             dances = backend.dances[cat]
             mixer.init()
             statusVar.set("Queuing music...")
+            if LOL:
+                mixer.music.load("media/MK Countdown.mp3")
+                mixer.music.play()
+                waitDone()
             for dance in dances:
                 if not STOP:
                     song = os.listdir(f"music/{cat}/{dance}")
@@ -86,6 +92,10 @@ def playRound(style:str):
         dances = backend.dances[style]
         mixer.init()
         statusVar.set("Queuing music...")
+        if LOL:
+                mixer.music.load("media/MK Countdown.mp3")
+                mixer.music.play()
+                waitDone()
         for dance in dances:
             if not STOP:
                 song = os.listdir(f"music/{style}/{dance}")
@@ -232,7 +242,7 @@ status_label = ttk.Label(frm,textvariable=statusVar,padding='10').grid(column=3,
 pause_but = ttk.Button(frm, text="Pause", command=pauseSong).grid(column=0,row=6)
 unpause_but = ttk.Button(frm, text="! Pause", command=resumeSong).grid(column=1,row=6)
 skip_but = ttk.Button(frm, text="Skip", command=skipSong).grid(column=0,row=7)
-stop_but = ttk.Button(frm, text="Stop\nShuffle", command=stopShuffle).grid(column=1,row=7)
+stop_but = ttk.Button(frm, text="Stop", command=stopShuffle).grid(column=1,row=7)
 
 statusVar.set("Setting up...")
 backend.setup()
