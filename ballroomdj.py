@@ -55,7 +55,11 @@ def playThreadedRound(style:str):
 
 def playRound(style:str):
     global PAUSED
+    global STOP
+    STOP = False
+    statusVar.set("Setting up...")
     if style == "all":
+        backend.round_request(style)
         for cat in backend.dances.keys():
             while PAUSED:
                 time.sleep(1)
@@ -63,33 +67,39 @@ def playRound(style:str):
             mixer.init()
             statusVar.set("Queuing music...")
             for dance in dances:
-                song = os.listdir(f"music/{cat}/{dance}")
-                statusVar.set(f"Playing {dance}\n{song[0][:-4]}")
-                mixer.music.load(f"music/{cat}/{dance}/{song[0]}")
-                mixer.music.play()
-                waitDone()
-                mixer.music.load("media/clapping.mp3")
-                mixer.music.play()
-                waitDone()
-            pauseSong() #pause between styles requested by James
-            statusVar.set("Press '! Pause' to continue!")
+                if not STOP:
+                    song = os.listdir(f"music/{cat}/{dance}")
+                    statusVar.set(f"Playing {dance}\n{song[0][:-4]}")
+                    mixer.music.load(f"music/{cat}/{dance}/{song[0]}")
+                    mixer.music.play()
+                    waitDone()
+                    if not STOP:
+                        mixer.music.load("media/clapping.mp3")
+                        mixer.music.play()
+                        waitDone()
+            if not STOP:
+                pauseSong() #pause between styles requested by James
+                statusVar.set("Press '! Pause' to continue!")
         statusVar.set("Nice Dancing!\nAwaiting input")
-    else:       
+    else:      
+        backend.round_request(style) 
         dances = backend.dances[style]
         mixer.init()
         statusVar.set("Queuing music...")
         for dance in dances:
-            song = os.listdir(f"music/{style}/{dance}")
-            title = song[0][:-4]
-            if len(title) > 20:
-                title = title[:20] + '-\n' + title[20:]
-            statusVar.set(f"Playing {dance}:\n{title}")
-            mixer.music.load(f"music/{style}/{dance}/{song[0]}")
-            mixer.music.play()
-            waitDone()
-            mixer.music.load("media/clapping.mp3")
-            mixer.music.play()
-            waitDone()
+            if not STOP:
+                song = os.listdir(f"music/{style}/{dance}")
+                title = song[0][:-4]
+                if len(title) > 20:
+                    title = title[:20] + '-\n' + title[20:]
+                statusVar.set(f"Playing {dance}:\n{title}")
+                mixer.music.load(f"music/{style}/{dance}/{song[0]}")
+                mixer.music.play()
+                waitDone()
+                if not STOP:
+                    mixer.music.load("media/clapping.mp3")
+                    mixer.music.play()
+                    waitDone()
         statusVar.set("Nice Dancing!\nAwaiting input")
 
 def getShuffleStyleSongs(que:Queue,style:str):

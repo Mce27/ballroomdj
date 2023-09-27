@@ -7,16 +7,17 @@ dances = {"smo":["waltz","tango","vwaltz","foxtrot"],
           "lat":["chacha","rumba","samba","jive","paso"]
             }
 
-def api_request():
+def round_request(style:str):
     """
-    pulls playlists from server and downloads one song for each category
+    pulls playlists from server and downloads one song for each dance in the style
     """
     playlists = requests.get(f'http://ballroom.mce27.xyz/rest/getPlaylists?u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp')
     soup = BeautifulSoup(playlists.content,features='lxml')
     playlist_list = soup.find_all("playlist")
     playlist_dict = {}
     for playlist in playlist_list:
-        playlist_dict[playlist['name']] = playlist['id']
+        if playlist['name'].startswith(style) or style == 'all':
+            playlist_dict[playlist['name']] = playlist['id']
     for cat in playlist_dict.keys():
         content_of_playlist = requests.get(f'http://ballroom.mce27.xyz/rest/getPlaylist?id={playlist_dict[cat]}&u=ballroom&t=32fc4daf799d520e6701b60cdb3178af&s=ow130p2&v=1.12.0&c=myapp')
         content_of_playlist = BeautifulSoup(content_of_playlist.content,features='lxml')
