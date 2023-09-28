@@ -61,6 +61,11 @@ def playRound(style:str):
     global STOP
     global LOL
     global CLAPS
+
+    if not STOP:    #in case the user starts this thread without stopping the old one
+        stopShuffle()
+        time.sleep(2)
+
     STOP = False
     PAUSED = False
     statusVar.set("Setting up...")
@@ -130,6 +135,11 @@ def shuffleStyle(style:str):
     global PAUSED
     que = Queue()
     que.maxsize = 3
+
+    if not STOP:    #in case the user starts this thread without stopping the old one
+        stopShuffle()
+        time.sleep(2)
+
     STOP = False
     PAUSED = False
     statusVar.set("Queuing music...")
@@ -165,6 +175,11 @@ def shuffleDance(style:str,dance:str):
     global PAUSED
     que = Queue()
     que.maxsize = 3
+
+    if not STOP:    #in case the user starts this thread without stopping the old one
+        stopShuffle()
+        time.sleep(2)
+    
     STOP = False
     PAUSED = False
     statusVar.set("Queuing music...")
