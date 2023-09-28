@@ -4,7 +4,7 @@ api_link='http://ballroom.mce27.xyz/rest/stream?id={id}&format=mp3&u=ballroom&t=
 dances = {"smo":["waltz","tango","vwaltz","foxtrot"],
           "std":["waltz","tango","vwaltz","foxtrot","quickstep"],
           "rhy":["chacha","rumba","swing","bolero","mambo"],
-          "lat":["chacha","rumba","samba","jive","paso"]
+          "lat":["samba","chacha","rumba","jive","paso"]
             }
 
 def round_request(style:str):
@@ -33,6 +33,10 @@ def get_random_style_song(style:str):
     Downloads a random song from a certain style
     Returns the filepath and song title
     """
+    if style == 'all':
+        styles_list = list(dances.keys())
+        rand = random.randint(0,len(styles_list)-1)
+        style = styles_list[rand]
     dances_list = dances[style]
     i = random.randrange(0,len(dances_list)) #random int to grab a dance
     dance_to_get = dances_list[i]
@@ -51,7 +55,7 @@ def get_random_style_song(style:str):
     song_to_dl = songs[i]
     filepath = f'music/{style}/{dance_to_get}/{song_to_dl["title"]}.mp3'
     get_song(song_to_dl['id'],filepath)
-    return filepath,song_to_dl['title']
+    return filepath,dance_to_get,song_to_dl['title']
 
 def get_random_dance_song(style:str,dance:str):
     """
