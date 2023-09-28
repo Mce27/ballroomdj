@@ -146,6 +146,7 @@ def shuffleStyle(style:str):
             mixer.music.load("media/clapping.mp3")
             mixer.music.play()
             waitDone()
+    statusVar.set("Nice Dancing!\nAwaiting input")
 
 def threadedShuffleStyle(style:str):
     threading.Thread(target=shuffleStyle,args=(style,)).start()
@@ -182,6 +183,7 @@ def shuffleDance(style:str,dance:str):
             mixer.music.play()
             waitDone()
         time.sleep(1)
+    statusVar.set("Nice Dancing!\nAwaiting input")
 
 def threadedShuffleDance(style:str,dance:str):
     threading.Thread(target=shuffleDance,args=(style,dance)).start()
