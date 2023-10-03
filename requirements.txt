@@ -1,4 +1,5 @@
 pygame
+requests
 pillow
 BeautifulSoup4
 lxml
