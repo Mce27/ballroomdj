@@ -121,5 +121,5 @@ def setup():
     else:
         global URL, user, token, salt
         with open("config.txt") as file:
-            data = file.read()
+            data = file.read().strip()
             URL, user, token, salt = data.split('\n')
