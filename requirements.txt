@@ -3,3 +3,4 @@ requests
 pillow
 BeautifulSoup4
 lxml
+keyboard
