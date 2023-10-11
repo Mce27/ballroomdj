@@ -17,6 +17,9 @@ FONT = 'monocraft'
 
 root = Tk()
 
+s = ttk.Style()
+s.configure('.', font=(FONT, 12))
+
 #Sets the title and the icon
 root.title("Ballroom DJ!")
 ico = Image.open('media/imgs/logo.ico') #Your icon here
@@ -291,4 +294,5 @@ mixer.init()
 statusVar.set("Awaiting input")
 root.mainloop()
 stopShuffle()
+time.sleep(2)
 shutil.rmtree('music', ignore_errors=True)

@@ -11,6 +11,7 @@ This is a python application that interfaces with a Subsonic api to play music i
 3. Run `pip install -r requirements.txt` to install the requrements
     1. In the event you're on linux and pip throws a fit, you'll have to go through each of the modules and install them with your package manager.
     2. On debian you'd use `apt install python3-xyz`
+4. (Optional) If you want you can install the `Monocraft.ttf` font in the media folder. This just makes the text look fun.
 
 ## Server Setup
 The program expects the Subsonic server. I used a Navidrome docker and would recommend the same.
