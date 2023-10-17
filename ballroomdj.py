@@ -300,7 +300,7 @@ lat_jive_shuffle_but = ttk.Button(button_frm, text="Jive!", command=lambda:threa
 lat_paso_shuffle_but = ttk.Button(button_frm, text="Paso Doble!", command=lambda:threadedShuffleDance('lat','paso')).grid(column=5,row=5)
 
 
-status_label = ttk.Label(frm,textvariable=statusVar,padding='10',font=FONT).grid(column=3,row=6)
+status_label = ttk.Label(frm,textvariable=statusVar,padding='10',font=FONT).grid(column=2,row=6)
 pause_but = ttk.Button(frm, text="Pause", command=pauseSong).grid(column=0,row=6)
 unpause_but = ttk.Button(frm, text="! Pause", command=resumeSong).grid(column=1,row=6)
 skip_but = ttk.Button(frm, text="Skip", command=skipSong).grid(column=0,row=7)
