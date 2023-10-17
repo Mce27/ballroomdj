@@ -1,4 +1,4 @@
-import time, backend, os, shutil, keyboard
+import time, backend, os, shutil
 from tkinter import *
 from tkinter import ttk
 from pygame import mixer
@@ -238,6 +238,7 @@ def toggleLOL():
     global LOL
     LOL = not LOL
 
+'''
 def keyboardLoop():
     """
     Meant to be run in a side thread, controls music with keyboard. 
@@ -254,6 +255,7 @@ def keyboardLoop():
         if event.event_type == keyboard.KEY_DOWN and event.name == 'right':
             print("right")
             skipSong()
+'''
 
 rounds_label = ttk.Label(frm,text="Rounds:",padding='10',font=FONT).grid(column=0,row=0)
 smo_round_but = ttk.Button(round_button_frm, text="Smooth!", command=lambda:playThreadedRound('smo')).grid(column=0,row=1)
@@ -310,7 +312,7 @@ statusVar.set("Setting up...")
 backend.setup()
 mixer.init()
 statusVar.set("Awaiting input")
-threading.Thread(target=keyboardLoop).start()
+#threading.Thread(target=keyboardLoop).start()
 root.mainloop()
 END_PROGRAM = True
 stopShuffle()
