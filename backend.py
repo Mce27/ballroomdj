@@ -83,12 +83,13 @@ def get_random_dance_song(style:str,dance:str):
     return filepath, song_to_dl['title']
 
 def get_song(id:str,out_path:str):
-    song = requests.get(f'http://{URL}/rest/stream?id={id}&u={user}&t={token}&format=mp3&s={salt}&v=1.12.0&c=myapp')
-    try:
-        with open(out_path,'wb') as file:
-            file.write(song.content)
-    except PermissionError as e:
-        print("error: " + str(e))
+    if not os.path.exists(out_path):
+        song = requests.get(f'http://{URL}/rest/stream?id={id}&u={user}&t={token}&format=mp3&s={salt}&v=1.12.0&c=myapp')
+        try:
+            with open(out_path,'wb') as file:
+                file.write(song.content)
+        except PermissionError as e:
+            print("error: " + str(e))
 
 def setup():
     """
