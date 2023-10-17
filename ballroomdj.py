@@ -293,9 +293,9 @@ rhy_bolero_shuffle_but = ttk.Button(button_frm, text="Bolero!", command=lambda:t
 rhy_mambo_shuffle_but = ttk.Button(button_frm, text="Mambo!", command=lambda:threadedShuffleDance('rhy','mambo')).grid(column=4,row=5)
 
 lat_label=ttk.Label(button_frm,text="Latin:",padding='10',font=FONT).grid(column=5,row=0)
-lat_chacha_shuffle_but = ttk.Button(button_frm, text="Cha cha!", command=lambda:threadedShuffleDance('lat','chacha')).grid(column=5,row=1)
-lat_rumba_shuffle_but = ttk.Button(button_frm, text="Rumba!", command=lambda:threadedShuffleDance('lat','rumba')).grid(column=5,row=2)
-lat_samba_shuffle_but = ttk.Button(button_frm, text="Samba!", command=lambda:threadedShuffleDance('lat','samba')).grid(column=5,row=3)
+lat_samba_shuffle_but = ttk.Button(button_frm, text="Samba!", command=lambda:threadedShuffleDance('lat','samba')).grid(column=5,row=1)
+lat_chacha_shuffle_but = ttk.Button(button_frm, text="Cha cha!", command=lambda:threadedShuffleDance('lat','chacha')).grid(column=5,row=2)
+lat_rumba_shuffle_but = ttk.Button(button_frm, text="Rumba!", command=lambda:threadedShuffleDance('lat','rumba')).grid(column=5,row=3)
 lat_jive_shuffle_but = ttk.Button(button_frm, text="Jive!", command=lambda:threadedShuffleDance('lat','jive')).grid(column=5,row=4)
 lat_paso_shuffle_but = ttk.Button(button_frm, text="Paso Doble!", command=lambda:threadedShuffleDance('lat','paso')).grid(column=5,row=5)
 
