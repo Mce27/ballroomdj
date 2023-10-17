@@ -88,7 +88,10 @@ def playRound(style:str):
             for dance in dances:
                 if not STOP:
                     song = os.listdir(f"music/{cat}/{dance}")
-                    statusVar.set(f"Playing {dance}\n{song[0][:-4]}")
+                    title = song[0][:-4]
+                    if len(title) > 20:
+                        title = title[:20] + '-\n' + title[20:]
+                    statusVar.set(f"Playing {dance}\n{title}")
                     mixer.music.load(f"music/{cat}/{dance}/{song[0]}")
                     mixer.music.play()
                     waitDone()
