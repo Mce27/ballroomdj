@@ -15,6 +15,7 @@ LOL = True
 CLAPS = TRUE
 END_PROGRAM = False
 FONT = 'monocraft'
+STATUS_LEN = 40
 
 root = Tk()
 
@@ -89,8 +90,8 @@ def playRound(style:str):
                 if not STOP:
                     song = os.listdir(f"music/{cat}/{dance}")
                     title = song[0][:-4]
-                    if len(title) > 20:
-                        title = title[:20] + '-\n' + title[20:]
+                    if len(title) > STATUS_LEN:
+                        title = title[:STATUS_LEN] + '-\n' + title[STATUS_LEN:]
                     statusVar.set(f"Playing {dance}\n{title}")
                     mixer.music.load(f"music/{cat}/{dance}/{song[0]}")
                     mixer.music.play()
@@ -116,8 +117,8 @@ def playRound(style:str):
             if not STOP:
                 song = os.listdir(f"music/{style}/{dance}")
                 title = song[0][:-4]
-                if len(title) > 20:
-                    title = title[:20] + '-\n' + title[20:]
+                if len(title) > STATUS_LEN:
+                    title = title[:STATUS_LEN] + '-\n' + title[STATUS_LEN:]
                 statusVar.set(f"Playing {dance}:\n{title}")
                 mixer.music.load(f"music/{style}/{dance}/{song[0]}")
                 mixer.music.play()
@@ -153,8 +154,8 @@ def shuffleStyle(style:str):
     threading.Thread(target=getShuffleStyleSongs,args=(que,style)).start()
     while not STOP:
         title,dance,filepath = que.get()
-        if len(title) > 20:
-            title = title[:20] + '-\n' + title[20:]
+        if len(title) > STATUS_LEN:
+            title = title[:STATUS_LEN] + '-\n' + title[STATUS_LEN:]
         statusVar.set(f"Playing {dance}:\n{title}")
         mixer.music.load(filepath)
         mixer.music.play()
@@ -194,8 +195,8 @@ def shuffleDance(style:str,dance:str):
     
     while not STOP:
         title,filepath = que.get()
-        if len(title) > 20:
-            title = title[:20] + '-\n' + title[20:]
+        if len(title) > STATUS_LEN:
+            title = title[:STATUS_LEN] + '-\n' + title[STATUS_LEN:]
         statusVar.set(f"Playing {dance}:\n{title}")
         mixer.music.load(filepath)
         mixer.music.play()
@@ -289,7 +290,7 @@ std_foxtrot_shuffle_but = ttk.Button(button_frm, text="Foxtrot!", command=lambda
 std_quickstep_shuffle_but = ttk.Button(button_frm, text="Quickstep!", command=lambda:threadedShuffleDance('std','quickstep')).grid(column=3,row=5)
 
 rhy_label=ttk.Label(button_frm,text="Rhythm:",padding='10',font=FONT).grid(column=4,row=0)
-rhy_chacha_shuffle_but = ttk.Button(button_frm, text="Cha cha!", command=lambda:threadedShuffleDance('rhy','chacha')).grid(column=4,row=1)
+rhy_chacha_shuffle_but = ttk.Button(button_frm, text="Cha Cha!", command=lambda:threadedShuffleDance('rhy','chacha')).grid(column=4,row=1)
 rhy_rumba_shuffle_but = ttk.Button(button_frm, text="Rumba!", command=lambda:threadedShuffleDance('rhy','rumba')).grid(column=4,row=2)
 rhy_swing_shuffle_but = ttk.Button(button_frm, text="Swing!", command=lambda:threadedShuffleDance('rhy','swing')).grid(column=4,row=3)
 rhy_bolero_shuffle_but = ttk.Button(button_frm, text="Bolero!", command=lambda:threadedShuffleDance('rhy','bolero')).grid(column=4,row=4)
@@ -297,7 +298,7 @@ rhy_mambo_shuffle_but = ttk.Button(button_frm, text="Mambo!", command=lambda:thr
 
 lat_label=ttk.Label(button_frm,text="Latin:",padding='10',font=FONT).grid(column=5,row=0)
 lat_samba_shuffle_but = ttk.Button(button_frm, text="Samba!", command=lambda:threadedShuffleDance('lat','samba')).grid(column=5,row=1)
-lat_chacha_shuffle_but = ttk.Button(button_frm, text="Cha cha!", command=lambda:threadedShuffleDance('lat','chacha')).grid(column=5,row=2)
+lat_chacha_shuffle_but = ttk.Button(button_frm, text="Cha Cha!", command=lambda:threadedShuffleDance('lat','chacha')).grid(column=5,row=2)
 lat_rumba_shuffle_but = ttk.Button(button_frm, text="Rumba!", command=lambda:threadedShuffleDance('lat','rumba')).grid(column=5,row=3)
 lat_jive_shuffle_but = ttk.Button(button_frm, text="Jive!", command=lambda:threadedShuffleDance('lat','jive')).grid(column=5,row=4)
 lat_paso_shuffle_but = ttk.Button(button_frm, text="Paso Doble!", command=lambda:threadedShuffleDance('lat','paso')).grid(column=5,row=5)
