@@ -1,4 +1,4 @@
-import time, backend, os, shutil
+import time, backend, os, shutil, random
 from tkinter import *
 from tkinter import ttk
 from pygame import mixer
@@ -73,9 +73,12 @@ def playRound(style:str):
 
     STOP = False
     PAUSED = False
+
+    song_dict = {}
+
     statusVar.set("Setting up...")
     if style == "all":
-        backend.round_request(style)
+        backend.round_request(style,song_dict)
         for cat in backend.dances.keys():
             while PAUSED:
                 time.sleep(1)
@@ -88,12 +91,11 @@ def playRound(style:str):
                 waitDone()
             for dance in dances:
                 if not STOP:
-                    song = os.listdir(f"music/{cat}/{dance}")
-                    title = song[0][:-4]
+                    title,filepath = song_dict[cat + dance]
                     if len(title) > STATUS_LEN:
                         title = title[:STATUS_LEN] + '-\n' + title[STATUS_LEN:]
                     statusVar.set(f"Playing {dance}\n{title}")
-                    mixer.music.load(f"music/{cat}/{dance}/{song[0]}")
+                    mixer.music.load(filepath)
                     mixer.music.play()
                     waitDone()
                     if not STOP and CLAPS:
@@ -105,7 +107,7 @@ def playRound(style:str):
                 statusVar.set("Press '! Pause' to continue!")
         statusVar.set("Nice Dancing!\nAwaiting input")
     else:      
-        backend.round_request(style) 
+        backend.round_request(style,song_dict) 
         dances = backend.dances[style]
         mixer.init()
         statusVar.set("Queuing music...")
@@ -115,12 +117,11 @@ def playRound(style:str):
                 waitDone()
         for dance in dances:
             if not STOP:
-                song = os.listdir(f"music/{style}/{dance}")
-                title = song[0][:-4]
+                title,filepath = song_dict[cat + dance]
                 if len(title) > STATUS_LEN:
                     title = title[:STATUS_LEN] + '-\n' + title[STATUS_LEN:]
                 statusVar.set(f"Playing {dance}:\n{title}")
-                mixer.music.load(f"music/{style}/{dance}/{song[0]}")
+                mixer.music.load(filepath)
                 mixer.music.play()
                 waitDone()
                 if not STOP and CLAPS:

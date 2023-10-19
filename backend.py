@@ -1,4 +1,5 @@
 import os,requests,random
+from queue import Queue
 from bs4 import BeautifulSoup
 URL = ''
 token = ''
@@ -10,7 +11,7 @@ dances = {"smo":["waltz","tango","vwaltz","foxtrot"],
           "lat":["samba","chacha","rumba","jive","paso"]
             }
 
-def round_request(style:str):
+def round_request(style:str,song_dict:dict):
     """
     pulls playlists from server and downloads one song for each dance in the style
     """
@@ -27,9 +28,14 @@ def round_request(style:str):
         songs = content_of_playlist.find_all('entry')
         i = random.randrange(0,len(songs)) #random int to grab a song
         song_to_dl = songs[i]['id']
+        filepath = f'music/{cat[:3]}/{cat[3:]}/{songs[i]["title"]}.mp3'
+        get_song(song_to_dl,filepath)
+        song_dict[cat] = (songs[i]['title'],filepath)
+        """
         req = requests.get(f'http://{URL}/rest/stream?id={song_to_dl}&u={user}&t={token}&format=mp3&s={salt}&v=1.12.0&c=myapp')
         with open(f'music/{cat[:3]}/{cat[3:]}/{songs[i]["title"]}.mp3','wb') as file:
             file.write(req.content)
+        """
 
 def get_random_style_song(style:str):
     """
