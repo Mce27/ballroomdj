@@ -1,4 +1,4 @@
-import time, backend, os, shutil, random
+import time, backend, shutil
 from tkinter import *
 from tkinter import ttk
 from pygame import mixer
@@ -117,7 +117,7 @@ def playRound(style:str):
                 waitDone()
         for dance in dances:
             if not STOP:
-                title,filepath = song_dict[cat + dance]
+                title,filepath = song_dict[style + dance]
                 if len(title) > STATUS_LEN:
                     title = title[:STATUS_LEN] + '-\n' + title[STATUS_LEN:]
                 statusVar.set(f"Playing {dance}:\n{title}")

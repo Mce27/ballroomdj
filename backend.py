@@ -1,5 +1,4 @@
 import os,requests,random
-from queue import Queue
 from bs4 import BeautifulSoup
 URL = ''
 token = ''
