@@ -280,8 +280,8 @@ shuffle_dance_label = ttk.Label(frm,text="Shuffle Dance:",padding='10',font=FONT
 smo_label=ttk.Label(button_frm,text="Smooth:",padding='10',font=FONT).grid(column=2,row=0)
 smo_waltz_shuffle_but = ttk.Button(button_frm, text="Waltz!", command=lambda:threadedShuffleDance('smo','waltz')).grid(column=2,row=1)
 smo_tango_shuffle_but = ttk.Button(button_frm, text="Tango!", command=lambda:threadedShuffleDance('smo','tango')).grid(column=2,row=2)
-smo_vwaltz_shuffle_but = ttk.Button(button_frm, text="VWaltz!", command=lambda:threadedShuffleDance('smo','vwaltz')).grid(column=2,row=3)
-smo_foxtrot_shuffle_but = ttk.Button(button_frm, text="Foxtrot!", command=lambda:threadedShuffleDance('smo','foxtrot')).grid(column=2,row=4)
+smo_foxtrot_shuffle_but = ttk.Button(button_frm, text="Foxtrot!", command=lambda:threadedShuffleDance('smo','foxtrot')).grid(column=2,row=3)
+smo_vwaltz_shuffle_but = ttk.Button(button_frm, text="VWaltz!", command=lambda:threadedShuffleDance('smo','vwaltz')).grid(column=2,row=4)
 
 std_label=ttk.Label(button_frm,text="Standard:",padding='10',font=FONT).grid(column=3,row=0)
 std_waltz_shuffle_but = ttk.Button(button_frm, text="Waltz!", command=lambda:threadedShuffleDance('std','waltz')).grid(column=3,row=1)
@@ -301,8 +301,8 @@ lat_label=ttk.Label(button_frm,text="Latin:",padding='10',font=FONT).grid(column
 lat_samba_shuffle_but = ttk.Button(button_frm, text="Samba!", command=lambda:threadedShuffleDance('lat','samba')).grid(column=5,row=1)
 lat_chacha_shuffle_but = ttk.Button(button_frm, text="Cha Cha!", command=lambda:threadedShuffleDance('lat','chacha')).grid(column=5,row=2)
 lat_rumba_shuffle_but = ttk.Button(button_frm, text="Rumba!", command=lambda:threadedShuffleDance('lat','rumba')).grid(column=5,row=3)
-lat_jive_shuffle_but = ttk.Button(button_frm, text="Jive!", command=lambda:threadedShuffleDance('lat','jive')).grid(column=5,row=4)
-lat_paso_shuffle_but = ttk.Button(button_frm, text="Paso Doble!", command=lambda:threadedShuffleDance('lat','paso')).grid(column=5,row=5)
+lat_paso_shuffle_but = ttk.Button(button_frm, text="Paso Doble!", command=lambda:threadedShuffleDance('lat','paso')).grid(column=5,row=4)
+lat_jive_shuffle_but = ttk.Button(button_frm, text="Jive!", command=lambda:threadedShuffleDance('lat','jive')).grid(column=5,row=5)
 
 
 status_label = ttk.Label(frm,textvariable=statusVar,padding='10',font=FONT).grid(column=2,row=6)

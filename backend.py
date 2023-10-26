@@ -4,10 +4,10 @@ URL = ''
 token = ''
 user = ''
 salt = ''
-dances = {"smo":["waltz","tango","vwaltz","foxtrot"],
+dances = {"smo":["waltz","tango","foxtrot","vwaltz"],
           "std":["waltz","tango","vwaltz","foxtrot","quickstep"],
           "rhy":["chacha","rumba","swing","bolero","mambo"],
-          "lat":["samba","chacha","rumba","jive","paso"]
+          "lat":["samba","chacha","rumba","paso","jive"]
             }
 
 def round_request(style:str,song_dict:dict):
