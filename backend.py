@@ -119,11 +119,12 @@ def setup():
                         os.mkdir(f'music/{cat}/{dance}')
     # time to get user creds
     if not os.path.exists('config.txt'):
-        print("Please put your credentials in a file named config.txt\n"\
+        print("Please put your credentials in a file named 'config.txt'\n"\
               "They should be in the form:\n URL\nuser\ntoken\nsalt\n"\
-              "This program is built to access a Subsonic api, namely Navidrome."\
+              "This program is built to access a Subsonic api, namely Navidrome. "\
               "Refer to the 'Authentication' section in http://www.subsonic.org/pages/api.jsp for more information"
               )
+        exit()
     else:
         global URL, user, token, salt
         with open("config.txt") as file:
