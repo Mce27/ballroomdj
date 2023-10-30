@@ -11,8 +11,8 @@ import threading
 Mfont=["Comic sans MS", 20]
 PAUSED = False
 STOP = False
-LOL = True
-CLAPS = TRUE
+LOL = False
+CLAPS = True
 END_PROGRAM = False
 FONT = 'monocraft'
 STATUS_LEN = 40
@@ -237,10 +237,29 @@ def skipSong():
 
 def toggleClaps():
     global CLAPS
+    global claps_but
+    if CLAPS == True:
+        #set to red
+        claps_but['bg'] = 'red'
+        claps_but['activebackground'] = 'red'
+    else:
+        #set to green
+        claps_but['bg'] = 'green'
+        claps_but['activebackground'] = 'green'
     CLAPS = not CLAPS
+    
 
 def toggleLOL():
     global LOL
+    global lol_button
+    if LOL == True:
+        #set to red
+        lol_button['bg'] = 'red'
+        lol_button['activebackground'] = 'red'
+    else:
+        #set to green
+        lol_button['bg'] = 'green'
+        lol_button['activebackground'] = 'green'
     LOL = not LOL
 
 '''
@@ -310,8 +329,16 @@ pause_but = ttk.Button(frm, text="Pause", command=pauseSong).grid(column=0,row=6
 unpause_but = ttk.Button(frm, text="! Pause", command=resumeSong).grid(column=1,row=6)
 skip_but = ttk.Button(frm, text="Skip", command=skipSong).grid(column=0,row=7)
 stop_but = ttk.Button(frm, text="Stop", command=stopShuffle).grid(column=1,row=7)
-claps_but = ttk.Button(frm, text="Toggle\nClaps", command=toggleClaps).grid(column=0,row=8)
-lol_button = ttk.Button(frm, text="Toggle\nCount", command=toggleLOL).grid(column=1,row=8)
+if CLAPS:
+    claps_but = Button(frm,bg='green',activebackground='green', text="Toggle\nClaps",font=FONT, command=toggleClaps)
+else:
+    claps_but = Button(frm,bg='red',activebackground='red', text="Toggle\nClaps",font=FONT, command=toggleClaps)
+claps_but.grid(column=0,row=8)
+if LOL:
+    lol_button = Button(frm,bg='green',activebackground='green', text="Toggle\nCount",font=FONT, command=toggleLOL)
+else:
+    lol_button = Button(frm,bg='red',activebackground='green', text="Toggle\nCount",font=FONT, command=toggleLOL)
+lol_button.grid(column=1,row=8)
 
 statusVar.set("Setting up...")
 backend.setup()
