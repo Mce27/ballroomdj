@@ -5,3 +5,5 @@
 !media/*
 !media/*/*
 !README.md
+!.gitignore
+!keybindings.csv
