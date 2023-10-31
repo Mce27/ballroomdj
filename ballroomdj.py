@@ -247,6 +247,12 @@ def resumeSong():
         mixer.music.unpause()
         PAUSED = False
 
+def pause_or_unpause_song():
+    if PAUSED:
+        resumeSong()
+    else:
+        pauseSong()
+
 def skipSong():
     global PAUSED #just in case the player is paused
     PAUSED = False
@@ -393,8 +399,8 @@ else:
     four_dance_but =Button(frm,bg=GREYHEX,activebackground=GREYHEX, text="4 Dance\nRounds",font=TKFONT, command=toggleFourDance)
 four_dance_but.grid(column=1,row=5)
 
-pause_but = ttk.Button(frm, text="Pause", command=pauseSong).grid(column=0,row=6)
-unpause_but = ttk.Button(frm, text="! Pause", command=resumeSong).grid(column=1,row=6)
+pause_but = ttk.Button(frm, text="Pause", command=pause_or_unpause_song).grid(column=0,row=6)
+#unpause_but = ttk.Button(frm, text="! Pause", command=resumeSong).grid(column=1,row=6)
 skip_but = ttk.Button(frm, text="Skip", command=skipSong).grid(column=0,row=7)
 stop_but = ttk.Button(frm, text="Stop", command=stopShuffle).grid(column=1,row=7)
 if CLAPS:
