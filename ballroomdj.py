@@ -17,6 +17,8 @@ LOL = False
 CLAPS = True
 END_PROGRAM = False
 FONT = 'monocraft'
+GREENHEX = '#006400'
+GREYHEX = '#808080'
 STATUS_LEN = 40
 THREE_DANCE = False
 FOUR_DANCE = False
@@ -255,12 +257,12 @@ def toggleClaps():
     global claps_but
     if CLAPS == True:
         #set to red
-        claps_but['bg'] = 'red'
-        claps_but['activebackground'] = 'red'
+        claps_but['bg'] = GREYHEX
+        claps_but['activebackground'] = GREYHEX
     else:
         #set to green
-        claps_but['bg'] = 'green'
-        claps_but['activebackground'] = 'green'
+        claps_but['bg'] = GREENHEX
+        claps_but['activebackground'] = GREENHEX
     CLAPS = not CLAPS
     
 
@@ -269,12 +271,12 @@ def toggleLOL():
     global lol_button
     if LOL == True:
         #set to red
-        lol_button['bg'] = 'red'
-        lol_button['activebackground'] = 'red'
+        lol_button['bg'] = GREYHEX
+        lol_button['activebackground'] = GREYHEX
     else:
         #set to green
-        lol_button['bg'] = 'green'
-        lol_button['activebackground'] = 'green'
+        lol_button['bg'] = GREENHEX
+        lol_button['activebackground'] = GREENHEX
     LOL = not LOL
 
 def toggleThreeDance():
@@ -284,12 +286,12 @@ def toggleThreeDance():
         toggleFourDance()
     if THREE_DANCE == True:
         #set to red
-        three_dance_but['bg'] = 'red'
-        three_dance_but['activebackground'] = 'red'
+        three_dance_but['bg'] = GREYHEX
+        three_dance_but['activebackground'] = GREYHEX
     else:
         #set to green
-        three_dance_but['bg'] = 'green'
-        three_dance_but['activebackground'] = 'green'
+        three_dance_but['bg'] = GREENHEX
+        three_dance_but['activebackground'] = GREENHEX
     THREE_DANCE = not THREE_DANCE
 
 def toggleFourDance():
@@ -299,12 +301,12 @@ def toggleFourDance():
         toggleThreeDance()
     if FOUR_DANCE == True:
         #set to red
-        four_dance_but['bg'] = 'red'
-        four_dance_but['activebackground'] = 'red'
+        four_dance_but['bg'] = GREYHEX
+        four_dance_but['activebackground'] = GREYHEX
     else:
         #set to green
-        four_dance_but['bg'] = 'green'
-        four_dance_but['activebackground'] = 'green'
+        four_dance_but['bg'] = GREENHEX
+        four_dance_but['activebackground'] = GREENHEX
     FOUR_DANCE = not FOUR_DANCE
 
 ### Keyboard stuff start
@@ -381,14 +383,14 @@ lat_jive_shuffle_but = ttk.Button(button_frm, text="Jive!", command=lambda:threa
 status_label = ttk.Label(frm,textvariable=statusVar,padding='10',font=FONT).grid(column=2,row=6)
 
 if THREE_DANCE:
-    three_dance_but = Button(frm,bg='green',activebackground='green', text="3 Dance\nRounds",font=TKFONT, command=toggleThreeDance)
+    three_dance_but = Button(frm,bg=GREENHEX,activebackground=GREENHEX, text="3 Dance\nRounds",font=TKFONT, command=toggleThreeDance)
 else:
-    three_dance_but = Button(frm,bg='red',activebackground='red', text="3 Dance\nRounds",font=TKFONT, command=toggleThreeDance)
+    three_dance_but = Button(frm,bg=GREYHEX,activebackground=GREYHEX, text="3 Dance\nRounds",font=TKFONT, command=toggleThreeDance)
 three_dance_but.grid(column=0,row=5)
 if FOUR_DANCE:
-    four_dance_but =Button(frm,bg='green',activebackground='green', text="4 Dance\nRounds",font=TKFONT, command=toggleFourDance)
+    four_dance_but =Button(frm,bg=GREENHEX,activebackground=GREENHEX, text="4 Dance\nRounds",font=TKFONT, command=toggleFourDance)
 else:
-    four_dance_but =Button(frm,bg='red',activebackground='red', text="4 Dance\nRounds",font=TKFONT, command=toggleFourDance)
+    four_dance_but =Button(frm,bg=GREYHEX,activebackground=GREYHEX, text="4 Dance\nRounds",font=TKFONT, command=toggleFourDance)
 four_dance_but.grid(column=1,row=5)
 
 pause_but = ttk.Button(frm, text="Pause", command=pauseSong).grid(column=0,row=6)
@@ -396,14 +398,14 @@ unpause_but = ttk.Button(frm, text="! Pause", command=resumeSong).grid(column=1,
 skip_but = ttk.Button(frm, text="Skip", command=skipSong).grid(column=0,row=7)
 stop_but = ttk.Button(frm, text="Stop", command=stopShuffle).grid(column=1,row=7)
 if CLAPS:
-    claps_but = Button(frm,bg='green',activebackground='green', text="Toggle\nClaps",font=TKFONT, command=toggleClaps)
+    claps_but = Button(frm,bg=GREENHEX,activebackground=GREENHEX, text="Toggle\nClaps",font=TKFONT, command=toggleClaps)
 else:
-    claps_but = Button(frm,bg='red',activebackground='red', text="Toggle\nClaps",font=TKFONT, command=toggleClaps)
+    claps_but = Button(frm,bg=GREYHEX,activebackground=GREYHEX, text="Toggle\nClaps",font=TKFONT, command=toggleClaps)
 claps_but.grid(column=0,row=8)
 if LOL:
-    lol_button = Button(frm,bg='green',activebackground='green', text="Toggle\nCount",font=TKFONT, command=toggleLOL)
+    lol_button = Button(frm,bg=GREENHEX,activebackground=GREENHEX, text="Toggle\nCount",font=TKFONT, command=toggleLOL)
 else:
-    lol_button = Button(frm,bg='red',activebackground='green', text="Toggle\nCount",font=TKFONT, command=toggleLOL)
+    lol_button = Button(frm,bg='#808080',activebackground='white', text="Toggle\nCount",font=TKFONT, command=toggleLOL)
 lol_button.grid(column=1,row=8)
 
 statusVar.set("Setting up...")
@@ -424,5 +426,5 @@ keyboard.press(Key.esc)
 time.sleep(0.5)
 keyboard.release(Key.esc)
 stopShuffle()
-time.sleep(2)
+time.sleep(1)
 shutil.rmtree('music', ignore_errors=True)
