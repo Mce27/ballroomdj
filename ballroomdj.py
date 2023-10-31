@@ -1,4 +1,5 @@
 import time, backend, shutil
+from tkinter.font import Font
 from tkinter import *
 from tkinter import ttk
 from pygame import mixer
@@ -16,11 +17,16 @@ CLAPS = True
 END_PROGRAM = False
 FONT = 'monocraft'
 STATUS_LEN = 40
+THREE_DANCE = False
+FOUR_DANCE = False
+three_dance_excludes = ['stdfoxtrot', 'smovwaltz', 'rhymambo', 'latsamba']
+four_dance_excludes = ['latpaso', 'rhybolero','stdvwaltz']
 
 root = Tk()
+TKFONT = Font(root,font=(FONT,20))
 
 s = ttk.Style()
-s.configure('.', font=(FONT, 12))
+s.configure('.', font=(FONT, 20))
 
 #Sets the title and the icon
 root.title("Ballroom DJ!")
@@ -92,6 +98,10 @@ def playRound(style:str):
             for dance in dances:
                 if not STOP:
                     title,filepath = song_dict[cat + dance]
+                    if THREE_DANCE and ((cat+dance) in three_dance_excludes or (cat+dance) in four_dance_excludes):
+                        continue
+                    if FOUR_DANCE and (cat+dance) in four_dance_excludes:
+                        continue
                     if len(title) > STATUS_LEN:
                         title = title[:STATUS_LEN] + '-\n' + title[STATUS_LEN:]
                     statusVar.set(f"Playing {dance}\n{title}")
@@ -118,6 +128,10 @@ def playRound(style:str):
         for dance in dances:
             if not STOP:
                 title,filepath = song_dict[style + dance]
+                if THREE_DANCE and ((style+dance) in three_dance_excludes or (style+dance) in four_dance_excludes):
+                    continue
+                if FOUR_DANCE and (style+dance) in four_dance_excludes:
+                    continue
                 if len(title) > STATUS_LEN:
                     title = title[:STATUS_LEN] + '-\n' + title[STATUS_LEN:]
                 statusVar.set(f"Playing {dance}:\n{title}")
@@ -262,6 +276,36 @@ def toggleLOL():
         lol_button['activebackground'] = 'green'
     LOL = not LOL
 
+def toggleThreeDance():
+    global THREE_DANCE
+    global three_dance_but
+    if FOUR_DANCE:
+        toggleFourDance()
+    if THREE_DANCE == True:
+        #set to red
+        three_dance_but['bg'] = 'red'
+        three_dance_but['activebackground'] = 'red'
+    else:
+        #set to green
+        three_dance_but['bg'] = 'green'
+        three_dance_but['activebackground'] = 'green'
+    THREE_DANCE = not THREE_DANCE
+
+def toggleFourDance():
+    global FOUR_DANCE
+    global four_dance_but
+    if THREE_DANCE:
+        toggleThreeDance()
+    if FOUR_DANCE == True:
+        #set to red
+        four_dance_but['bg'] = 'red'
+        four_dance_but['activebackground'] = 'red'
+    else:
+        #set to green
+        four_dance_but['bg'] = 'green'
+        four_dance_but['activebackground'] = 'green'
+    FOUR_DANCE = not FOUR_DANCE
+
 '''
 def keyboardLoop():
     """
@@ -325,19 +369,31 @@ lat_jive_shuffle_but = ttk.Button(button_frm, text="Jive!", command=lambda:threa
 
 
 status_label = ttk.Label(frm,textvariable=statusVar,padding='10',font=FONT).grid(column=2,row=6)
+
+if THREE_DANCE:
+    three_dance_but = Button(frm,bg='green',activebackground='green', text="3 Dance\nRounds",font=TKFONT, command=toggleThreeDance)
+else:
+    three_dance_but = Button(frm,bg='red',activebackground='red', text="3 Dance\nRounds",font=TKFONT, command=toggleThreeDance)
+three_dance_but.grid(column=0,row=5)
+if FOUR_DANCE:
+    four_dance_but =Button(frm,bg='green',activebackground='green', text="4 Dance\nRounds",font=TKFONT, command=toggleFourDance)
+else:
+    four_dance_but =Button(frm,bg='red',activebackground='red', text="4 Dance\nRounds",font=TKFONT, command=toggleFourDance)
+four_dance_but.grid(column=1,row=5)
+
 pause_but = ttk.Button(frm, text="Pause", command=pauseSong).grid(column=0,row=6)
 unpause_but = ttk.Button(frm, text="! Pause", command=resumeSong).grid(column=1,row=6)
 skip_but = ttk.Button(frm, text="Skip", command=skipSong).grid(column=0,row=7)
 stop_but = ttk.Button(frm, text="Stop", command=stopShuffle).grid(column=1,row=7)
 if CLAPS:
-    claps_but = Button(frm,bg='green',activebackground='green', text="Toggle\nClaps",font=FONT, command=toggleClaps)
+    claps_but = Button(frm,bg='green',activebackground='green', text="Toggle\nClaps",font=TKFONT, command=toggleClaps)
 else:
-    claps_but = Button(frm,bg='red',activebackground='red', text="Toggle\nClaps",font=FONT, command=toggleClaps)
+    claps_but = Button(frm,bg='red',activebackground='red', text="Toggle\nClaps",font=TKFONT, command=toggleClaps)
 claps_but.grid(column=0,row=8)
 if LOL:
-    lol_button = Button(frm,bg='green',activebackground='green', text="Toggle\nCount",font=FONT, command=toggleLOL)
+    lol_button = Button(frm,bg='green',activebackground='green', text="Toggle\nCount",font=TKFONT, command=toggleLOL)
 else:
-    lol_button = Button(frm,bg='red',activebackground='green', text="Toggle\nCount",font=FONT, command=toggleLOL)
+    lol_button = Button(frm,bg='red',activebackground='green', text="Toggle\nCount",font=TKFONT, command=toggleLOL)
 lol_button.grid(column=1,row=8)
 
 statusVar.set("Setting up...")
