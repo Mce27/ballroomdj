@@ -7,6 +7,7 @@ from PIL import Image
 from PIL import ImageTk
 from queue import Queue
 import threading
+from pynput.keyboard import Key, Listener, Controller
 #https://tkdocs.com/
 
 Mfont=["Comic sans MS", 20]
@@ -306,24 +307,33 @@ def toggleFourDance():
         four_dance_but['activebackground'] = 'green'
     FOUR_DANCE = not FOUR_DANCE
 
-'''
-def keyboardLoop():
-    """
-    Meant to be run in a side thread, controls music with keyboard. 
-    """
+### Keyboard stuff start
+def on_key_press(key):
     global END_PROGRAM
-    while not END_PROGRAM:
-        event = keyboard.read_event()
-        if event.event_type == keyboard.KEY_DOWN and event.name == 'p':
-            print("p")
-            if PAUSED:
-                resumeSong()
-            else:
-                pauseSong()
-        if event.event_type == keyboard.KEY_DOWN and event.name == 'right':
-            print("right")
-            skipSong()
-'''
+    if not END_PROGRAM:
+        try:
+            #print(f'Key {key} pressed')
+            match key.char:
+                case 'p':
+                    if PAUSED:
+                        resumeSong()
+                    else:
+                        pauseSong()
+                case 's':
+                    stopShuffle()
+            
+        except AttributeError:
+            # Some special keys, like 'Key.shift', do not have a string representation
+            if key == Key.right:
+                skipSong()
+            #print(f'Special key {key} pressed')
+    else:
+        return False
+
+def start_keylogger():
+    with Listener(on_press=on_key_press) as listener: # type: ignore
+        listener.join()
+###Keyboard stuff end
 
 rounds_label = ttk.Label(frm,text="Rounds:",padding='10',font=FONT).grid(column=0,row=0)
 smo_round_but = ttk.Button(round_button_frm, text="Smooth!", command=lambda:playThreadedRound('smo')).grid(column=0,row=1)
@@ -400,9 +410,19 @@ statusVar.set("Setting up...")
 backend.setup()
 mixer.init()
 statusVar.set("Awaiting input")
-#threading.Thread(target=keyboardLoop).start()
+
+keylogger_thread = threading.Thread(target=start_keylogger, daemon=True)
+keylogger_thread.start()
+
 root.mainloop()
 END_PROGRAM = True
+
+# Press escape key to make the listener close
+keyboard = Controller()
+print("Wrapping up...")
+keyboard.press(Key.esc)
+time.sleep(0.5)
+keyboard.release(Key.esc)
 stopShuffle()
 time.sleep(2)
 shutil.rmtree('music', ignore_errors=True)
