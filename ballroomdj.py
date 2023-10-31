@@ -329,7 +329,73 @@ def on_key_press(key):
                         pauseSong()
                 case 's':
                     stopShuffle()
-            
+                case '1':
+                    playThreadedRound('smo')
+                case '2':
+                    playThreadedRound('std')
+                case '3':
+                    playThreadedRound('rhy')
+                case '4':
+                    playThreadedRound('lat')
+                case '5':
+                    playThreadedRound('all')
+                case '6':
+                    threadedShuffleStyle('smo')
+                case '7':
+                    threadedShuffleStyle('std')
+                case '8':
+                    threadedShuffleStyle('rhy')
+                case '9':
+                    threadedShuffleStyle('lat')
+                case '0':
+                    threadedShuffleStyle('all')
+                case 'q':
+                    threadedShuffleDance('smo','waltz')
+                case 'w':
+                    threadedShuffleDance('smo','tango')
+                case 'e':
+                    threadedShuffleDance('smo','foxtrot')
+                case 'r':
+                    threadedShuffleDance('smo','vwaltz')
+                case 't':
+                    threadedShuffleDance('std','waltz')
+                case 'y':
+                    threadedShuffleDance('std','tango')
+                case 'u':
+                    threadedShuffleDance('std','vwaltz')
+                case 'i':
+                    threadedShuffleDance('std','foxtrot')
+                case 'o':
+                    threadedShuffleDance('std','quickstep')
+                case 'a':
+                    threadedShuffleDance('rhy','chacha')
+                case 'd':
+                    threadedShuffleDance('rhy','rumba')
+                case 'f':
+                    threadedShuffleDance('rhy','swing')
+                case 'g':
+                    threadedShuffleDance('rhy','bolero')
+                case 'h':
+                    threadedShuffleDance('rhy','mambo')
+                case 'j':
+                    threadedShuffleDance('lat','samba')
+                case 'k':
+                    threadedShuffleDance('lat','chacha')
+                case 'l':
+                    threadedShuffleDance('lat','rumba')
+                case 'z':
+                    threadedShuffleDance('lat','paso')
+                case 'x':
+                    threadedShuffleDance('lat','jive')
+                case 'c':
+                    toggleThreeDance()
+                case 'v':
+                    toggleFourDance()
+                case 'b':
+                    toggleClaps()
+                case 'n':
+                    toggleLOL()           
+                     
         except AttributeError:
             # Some special keys, like 'Key.shift', do not have a string representation
             if key == Key.right:

@@ -2,3 +2,36 @@
 p,Pause
 right arrow, Skip
 s, Stop
+1,smooth round
+2,standard round
+3,rhythm round
+4,latin round
+5,all round
+6,smooth shuffle
+7,standard shuffle
+8,rhythm shuffle
+9,latin shuffle
+0,all shuffle
+q,smooth waltz shuffle
+w,smooth tango shuffle
+e,smooth foxtrot shuffle
+r,smooth vwaltz shuffle
+t,standard waltz shuffle
+y,standard tango shuffle
+u,standard vwaltz shuffle
+i,standard foxtrot shuffle
+o,standard quickstep shuffle
+a,rhythm chacha shuffle
+d,rhythm rumba shuffle
+f,rhythm swing shuffle
+g,rhythm bolero shuffle
+h,rhythm mambo shuffle
+j,latin samba shuffle
+k,latin chacha shuffle
+l,latin rumba shuffle
+z,latin paso shuffle
+x,latin jive shuffle
+c,toggle three dance round
+v,toggle four dance round
+b,toggle claps
+n,toggle countdown
