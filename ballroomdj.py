@@ -78,12 +78,12 @@ def playRound(style:str):
 
     if not STOP:    #in case the user starts this thread without stopping the old one
         stopShuffle()
-        time.sleep(2)
+        time.sleep(1)
 
     STOP = False
     PAUSED = False
 
-    song_dict = {}
+    song_dict = {}#this is not being populated
 
     statusVar.set("Setting up...")
     if style == "all":
@@ -498,5 +498,3 @@ keyboard.press(Key.esc)
 time.sleep(0.5)
 keyboard.release(Key.esc)
 stopShuffle()
-time.sleep(1)
-shutil.rmtree('music', ignore_errors=True)
